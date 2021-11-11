@@ -1,0 +1,6 @@
+
+# PyCharm cache
+/.idea
+
+# virtual enviroment
+/venv
