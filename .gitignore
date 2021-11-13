@@ -4,3 +4,6 @@
 
 # virtual enviroment
 /venv
+
+# compiled python files
+__pycache__/
