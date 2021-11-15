@@ -1,5 +1,4 @@
-# Processing a GET request with parameters
-class GetRequests:
+class ParseMixin:
 
     @staticmethod
     def parse_input_data(data: str) -> dict:
@@ -13,6 +12,10 @@ class GetRequests:
                 k, v = item.split('=')
                 result[k] = v
         return result
+
+
+# Processing a GET request with parameters
+class GetRequests(ParseMixin):
 
     @staticmethod
     def get_request_params(environ: dict) -> dict:
@@ -26,20 +29,7 @@ class GetRequests:
 
 
 # Processing a POST request with params
-class PostRequests:
-
-    @staticmethod
-    def parse_input_data(data: str) -> dict:
-        """
-        Parse an input string containing request params into a dict
-        """
-        result = {}
-        if data:
-            params = data.split('&')
-            for item in params:
-                k, v = item.split('=')
-                result[k] = v
-        return result
+class PostRequests(ParseMixin):
 
     @staticmethod
     def get_wsgi_input_data(environ) -> bytes:
