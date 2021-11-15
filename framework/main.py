@@ -1,4 +1,4 @@
-from framework.requests import GetRequests
+from framework.requests import GetRequests, PostRequests
 
 
 class PageNotFound404:
@@ -34,6 +34,11 @@ class Framework:
             request['request_params'] = request_params
             print(f'GET-parameters: {request_params}')
 
+        if method == 'POST':
+            data = PostRequests().get_request_params(environ)
+            request['data'] = data
+            print(f'POST-data: {data}')
+        
         # select view
         if path in self.routes:
             view = self.routes[path]
@@ -44,3 +49,4 @@ class Framework:
         code, body = view(request)
         start_response(code, [('Content-Type', 'text/html')])
         return [body.encode('utf-8')]
+
