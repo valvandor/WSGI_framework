@@ -2,9 +2,7 @@ class ParseMixin:
 
     @staticmethod
     def parse_input_data(data: str) -> dict:
-        """
-        Parse an input string containing request params into a dict
-        """
+        """ Parse an input string containing request params into a dict """
         result = {}
         if data:
             params = data.split('&')
@@ -14,23 +12,19 @@ class ParseMixin:
         return result
 
 
-# Processing a GET request with parameters
 class GetRequests(ParseMixin):
-
+    """ Class for processing a GET request with parameters """
     @staticmethod
     def get_request_params(environ: dict) -> dict:
-        """
-        Returns a dict of request parameters
-        """
+        """ Finds query params as a string from environ and converts it to dict """
         # get query params as a string
         query_string = environ['QUERY_STRING']
+        request_params = GetRequests.parse_input_data(query_string)
+        return request_params
 
-        return GetRequests.parse_input_data(query_string)
 
-
-# Processing a POST request with params
 class PostRequests(ParseMixin):
-
+    """ Class for processing a POST request with parameters """
     @staticmethod
     def get_wsgi_input_data(environ) -> bytes:
         """
@@ -44,10 +38,7 @@ class PostRequests(ParseMixin):
         return data
 
     def parse_wsgi_input_data(self, data: bytes) -> dict:
-        """
-        Decodes input string of bytes and
-        converted it to dict via function parse_input_data
-        """
+        """ Decodes input string of bytes and converts it to dict """
         result = {}
         if data:
             data_str = data.decode(encoding='utf-8')
@@ -55,6 +46,7 @@ class PostRequests(ParseMixin):
         return result
 
     def get_request_params(self, environ):
+        """ Returns a dict with query params """
         data = self.get_wsgi_input_data(environ)
         data = self.parse_wsgi_input_data(data)
         return data
