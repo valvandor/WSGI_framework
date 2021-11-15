@@ -1,3 +1,5 @@
+from quopri import decodestring as quopri_decodestring
+
 from framework.requests import GetRequests, PostRequests
 
 
@@ -37,7 +39,7 @@ class Framework:
         if method == 'POST':
             data = PostRequests().get_request_params(environ)
             request['data'] = data
-            print(f'POST-data: {data}')
+            print(f'POST-data: {Framework.decode_value(data)}')
         
         # select view
         if path in self.routes:
@@ -50,3 +52,14 @@ class Framework:
         start_response(code, [('Content-Type', 'text/html')])
         return [body.encode('utf-8')]
 
+    @staticmethod
+    def decode_value(data: dict):
+        """
+        Converts the transmitted data in accordance with UTF-8
+        """
+        new_data = {}
+        for k, v in data.items():
+            val = bytes(v.replace('%', '=').replace("+", " "), 'UTF-8')
+            val_decode_str = quopri_decodestring(val).decode('UTF-8')
+            new_data[k] = val_decode_str
+        return new_data
