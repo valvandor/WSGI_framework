@@ -1,5 +1,5 @@
 """ Module containing web application controllers — views """
-from framework.tamplator import render
+from framework.templator import render
 
 
 class Index:
