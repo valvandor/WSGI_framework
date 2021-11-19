@@ -16,7 +16,8 @@ class Framework:
         self.routes = routes
 
     def __call__(self, environ: dict, start_response):
-        # print(*[item for item in list(environ.items())], sep='\n') # environ info (for dev)
+        # show environment variables by order in console
+        # print(*sorted((f'{key}: {value}' for key, value in environ.items())), sep='\n')
 
         # get URL address
         path = environ['PATH_INFO']

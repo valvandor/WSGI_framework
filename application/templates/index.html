@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <p>Still ok with WSGI app</p>
+{% extends "base.html" %}
+
+{% block title %}
+	Test WSGI
+{% endblock %}
+
+{% block content %}
+	<p>Still ok with WSGI app</p>
     <form method="post">
         <p>Let's test our POST request</p>
         <label class="title" for="name">Your name</label>
         <input type="text" name="name" id="name"><br/>
         <button type="submit">Send</button>
     </form>
-</body>
-</html>
+{% endblock %}
